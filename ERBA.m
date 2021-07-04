@@ -18,7 +18,8 @@ function dsites = ERBA(f,dsites,rbf,rho,mode,tol)
 %   dsites: Nxs matrix representing the set of selected data sites (N <= M)
 %
 % To use this function, please cite:
-% F. Marchetti, E. Perracchione "", submitted.
+% F. Marchetti, E. Perracchione, "Efficient Reduced Basis Algorithm (ERBA) 
+% for kernel-based approximation", submitted.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -43,7 +44,7 @@ if mode == 0
 
             test_ind = test(folds,i);
             powfun = real(sqrt(sum((invIM(:,test_ind)*pinv(invIM(test_ind,test_ind))).*rbf(DistanceMatrix(dsites,dsites(test_ind,:))),1)));
-            pow_array(i) = max(powfun)/length(test_ind);
+            pow_array(i) = sqrt(mean(powfun.^2));
 
         end    
 
@@ -80,7 +81,7 @@ if mode == 1
 
             test_ind = test(folds,i);
             residual = invIM(test_ind,test_ind)\coeffs(test_ind);
-            res_array(i) = norm(residual,inf)/length(test_ind);
+            res_array(i) = sqrt(mean(residual.^2));
 
         end    
 
