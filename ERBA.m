@@ -55,6 +55,13 @@ if mode == 0
             dsites(test(folds,i_star),:) = [];
             n_dsites = size(dsites,1);
             n_folds = floor(n_dsites/rho);
+            
+            if floor(n_dsites/rho) <= 1
+                
+                fprintf('Number of remaining data not sufficient to continue \n\n')
+                return
+                
+            end
 
             rng(42);
             folds = cvpartition(n_dsites,'KFold',n_folds);
@@ -92,6 +99,13 @@ if mode == 1
             dsites(test(folds,i_star),:) = [];
             n_dsites = size(dsites,1);
             n_folds = floor(n_dsites/rho);
+            
+            if floor(n_dsites/rho) <= 1
+                
+                fprintf('Number of remaining data not sufficient to continue \n\n')
+                return
+                
+            end
 
             rng(42);
             folds = cvpartition(n_dsites,'KFold',n_folds);
